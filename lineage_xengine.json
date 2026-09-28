@@ -23,45 +23,85 @@
   "xengine-consumer-cfd-snowflake"
  ],
  "nodes": {
-  "source:fct_tick_fx": {
+  "source:tick_fx": {
    "engine": "kafka_connect",
    "project": "xengine-consumer-cfd-snowflake",
    "role": "source",
-   "identity": "glue:cfd.fct_tick_fx",
-   "relation": "DATAPAI.CFD_LAKE.FCT_TICK_FX",
+   "identity": "glue:cfd.tick_fx",
+   "relation": "DATAPAI.CFD_LAKE.TICK_FX",
    "produced_by_engine": "kafka_connect"
   },
-  "source:fct_tick_crypto": {
+  "source:tick_crypto": {
    "engine": "kafka_connect",
    "project": "xengine-consumer-cfd-snowflake",
    "role": "source",
-   "identity": "glue:cfd.fct_tick_crypto",
-   "relation": "DATAPAI.CFD_LAKE.FCT_TICK_CRYPTO",
+   "identity": "glue:cfd.tick_crypto",
+   "relation": "DATAPAI.CFD_LAKE.TICK_CRYPTO",
    "produced_by_engine": "kafka_connect"
   },
-  "source:fct_tick_index": {
+  "source:tick_index": {
    "engine": "kafka_connect",
    "project": "xengine-consumer-cfd-snowflake",
    "role": "source",
-   "identity": "glue:cfd.fct_tick_index",
-   "relation": "DATAPAI.CFD_LAKE.FCT_TICK_INDEX",
+   "identity": "glue:cfd.tick_index",
+   "relation": "DATAPAI.CFD_LAKE.TICK_INDEX",
    "produced_by_engine": "kafka_connect"
   },
-  "source:fct_tick_commodity": {
+  "source:tick_commodity": {
    "engine": "kafka_connect",
    "project": "xengine-consumer-cfd-snowflake",
    "role": "source",
-   "identity": "glue:cfd.fct_tick_commodity",
-   "relation": "DATAPAI.CFD_LAKE.FCT_TICK_COMMODITY",
+   "identity": "glue:cfd.tick_commodity",
+   "relation": "DATAPAI.CFD_LAKE.TICK_COMMODITY",
    "produced_by_engine": "kafka_connect"
   },
-  "stg_ticks_commodity": {
+  "mart_spread_by_asset_hourly": {
    "engine": "snowflake",
    "project": "xengine-consumer-cfd-snowflake",
    "role": "consumer",
-   "name": "stg_ticks_commodity",
-   "identity": "snowflake:datapai.cfd_mesh.stg_ticks_commodity",
-   "relation": "DATAPAI.CFD_MESH.stg_ticks_commodity",
+   "name": "mart_spread_by_asset_hourly",
+   "identity": "snowflake:datapai.cfd_mesh.mart_spread_by_asset_hourly",
+   "relation": "DATAPAI.CFD_MESH.mart_spread_by_asset_hourly",
+   "built": true,
+   "columns": {
+    "asset_class": "PUBLIC",
+    "symbol": "PUBLIC",
+    "event_hour": "PUBLIC",
+    "ticks": "PUBLIC",
+    "avg_spread_pips": "PUBLIC",
+    "min_spread_pips": "PUBLIC",
+    "max_spread_pips": "PUBLIC",
+    "avg_mid": "PUBLIC"
+   }
+  },
+  "fct_tick_unified": {
+   "engine": "snowflake",
+   "project": "xengine-consumer-cfd-snowflake",
+   "role": "consumer",
+   "name": "fct_tick_unified",
+   "identity": "snowflake:datapai.cfd_mesh.fct_tick_unified",
+   "relation": "DATAPAI.CFD_MESH.fct_tick_unified",
+   "built": true,
+   "columns": {
+    "asset_class": "PUBLIC",
+    "symbol": "PUBLIC",
+    "ts_utc": "PUBLIC",
+    "bid": "PUBLIC",
+    "ask": "PUBLIC",
+    "mid": "PUBLIC",
+    "spread_pips": "PUBLIC",
+    "session": "PUBLIC",
+    "source": "PUBLIC",
+    "ingested_at": "PUBLIC"
+   }
+  },
+  "stg_ticks_fx": {
+   "engine": "snowflake",
+   "project": "xengine-consumer-cfd-snowflake",
+   "role": "consumer",
+   "name": "stg_ticks_fx",
+   "identity": "snowflake:datapai.cfd_mesh.stg_ticks_fx",
+   "relation": "DATAPAI.CFD_MESH.stg_ticks_fx",
    "built": true,
    "columns": {
     "symbol": "PUBLIC",
@@ -97,27 +137,6 @@
     "ingested_at": "PUBLIC"
    }
   },
-  "stg_ticks_fx": {
-   "engine": "snowflake",
-   "project": "xengine-consumer-cfd-snowflake",
-   "role": "consumer",
-   "name": "stg_ticks_fx",
-   "identity": "snowflake:datapai.cfd_mesh.stg_ticks_fx",
-   "relation": "DATAPAI.CFD_MESH.stg_ticks_fx",
-   "built": true,
-   "columns": {
-    "symbol": "PUBLIC",
-    "ts_utc": "PUBLIC",
-    "bid": "PUBLIC",
-    "ask": "PUBLIC",
-    "mid": "PUBLIC",
-    "spread_pips": "PUBLIC",
-    "session": "PUBLIC",
-    "source": "PUBLIC",
-    "asset_class": "PUBLIC",
-    "ingested_at": "PUBLIC"
-   }
-  },
   "stg_ticks_index": {
    "engine": "snowflake",
    "project": "xengine-consumer-cfd-snowflake",
@@ -139,16 +158,15 @@
     "ingested_at": "PUBLIC"
    }
   },
-  "fct_tick_unified": {
+  "stg_ticks_commodity": {
    "engine": "snowflake",
    "project": "xengine-consumer-cfd-snowflake",
    "role": "consumer",
-   "name": "fct_tick_unified",
-   "identity": "snowflake:datapai.cfd_mesh.fct_tick_unified",
-   "relation": "DATAPAI.CFD_MESH.fct_tick_unified",
+   "name": "stg_ticks_commodity",
+   "identity": "snowflake:datapai.cfd_mesh.stg_ticks_commodity",
+   "relation": "DATAPAI.CFD_MESH.stg_ticks_commodity",
    "built": true,
    "columns": {
-    "asset_class": "PUBLIC",
     "symbol": "PUBLIC",
     "ts_utc": "PUBLIC",
     "bid": "PUBLIC",
@@ -157,26 +175,8 @@
     "spread_pips": "PUBLIC",
     "session": "PUBLIC",
     "source": "PUBLIC",
-    "ingested_at": "PUBLIC"
-   }
-  },
-  "mart_spread_by_asset_hourly": {
-   "engine": "snowflake",
-   "project": "xengine-consumer-cfd-snowflake",
-   "role": "consumer",
-   "name": "mart_spread_by_asset_hourly",
-   "identity": "snowflake:datapai.cfd_mesh.mart_spread_by_asset_hourly",
-   "relation": "DATAPAI.CFD_MESH.mart_spread_by_asset_hourly",
-   "built": true,
-   "columns": {
     "asset_class": "PUBLIC",
-    "symbol": "PUBLIC",
-    "event_hour": "PUBLIC",
-    "ticks": "PUBLIC",
-    "avg_spread_pips": "PUBLIC",
-    "min_spread_pips": "PUBLIC",
-    "max_spread_pips": "PUBLIC",
-    "avg_mid": "PUBLIC"
+    "ingested_at": "PUBLIC"
    }
   },
   "stg_ticks_fx@clickhouse": {
@@ -325,7 +325,7 @@
  },
  "edges": [
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "symbol",
    "to_node": "stg_ticks_commodity",
    "to_column": "symbol",
@@ -334,7 +334,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "ts_utc",
    "to_node": "stg_ticks_commodity",
    "to_column": "ts_utc",
@@ -343,7 +343,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "bid",
    "to_node": "stg_ticks_commodity",
    "to_column": "bid",
@@ -352,7 +352,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "ask",
    "to_node": "stg_ticks_commodity",
    "to_column": "ask",
@@ -361,7 +361,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "mid",
    "to_node": "stg_ticks_commodity",
    "to_column": "mid",
@@ -370,7 +370,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "spread_pips",
    "to_node": "stg_ticks_commodity",
    "to_column": "spread_pips",
@@ -379,7 +379,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "session",
    "to_node": "stg_ticks_commodity",
    "to_column": "session",
@@ -388,7 +388,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "source",
    "to_node": "stg_ticks_commodity",
    "to_column": "source",
@@ -397,7 +397,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "asset_class",
    "to_node": "stg_ticks_commodity",
    "to_column": "asset_class",
@@ -406,7 +406,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "symbol",
    "to_node": "stg_ticks_crypto",
    "to_column": "symbol",
@@ -415,7 +415,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "ts_utc",
    "to_node": "stg_ticks_crypto",
    "to_column": "ts_utc",
@@ -424,7 +424,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "bid",
    "to_node": "stg_ticks_crypto",
    "to_column": "bid",
@@ -433,7 +433,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "ask",
    "to_node": "stg_ticks_crypto",
    "to_column": "ask",
@@ -442,7 +442,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "mid",
    "to_node": "stg_ticks_crypto",
    "to_column": "mid",
@@ -451,7 +451,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "spread_pips",
    "to_node": "stg_ticks_crypto",
    "to_column": "spread_pips",
@@ -460,7 +460,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "session",
    "to_node": "stg_ticks_crypto",
    "to_column": "exchange_region",
@@ -469,7 +469,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "source",
    "to_node": "stg_ticks_crypto",
    "to_column": "source",
@@ -478,7 +478,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "asset_class",
    "to_node": "stg_ticks_crypto",
    "to_column": "asset_class",
@@ -487,7 +487,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "symbol",
    "to_node": "stg_ticks_fx",
    "to_column": "symbol",
@@ -496,7 +496,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "ts_utc",
    "to_node": "stg_ticks_fx",
    "to_column": "ts_utc",
@@ -505,7 +505,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "bid",
    "to_node": "stg_ticks_fx",
    "to_column": "bid",
@@ -514,7 +514,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "ask",
    "to_node": "stg_ticks_fx",
    "to_column": "ask",
@@ -523,7 +523,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "mid",
    "to_node": "stg_ticks_fx",
    "to_column": "mid",
@@ -532,7 +532,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "spread_pips",
    "to_node": "stg_ticks_fx",
    "to_column": "spread_pips",
@@ -541,7 +541,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "session",
    "to_node": "stg_ticks_fx",
    "to_column": "session",
@@ -550,7 +550,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "source",
    "to_node": "stg_ticks_fx",
    "to_column": "source",
@@ -559,7 +559,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "symbol",
    "to_node": "stg_ticks_index",
    "to_column": "symbol",
@@ -568,7 +568,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "ts_utc",
    "to_node": "stg_ticks_index",
    "to_column": "ts_utc",
@@ -577,7 +577,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "bid",
    "to_node": "stg_ticks_index",
    "to_column": "bid",
@@ -586,7 +586,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "ask",
    "to_node": "stg_ticks_index",
    "to_column": "ask",
@@ -595,7 +595,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "mid",
    "to_node": "stg_ticks_index",
    "to_column": "mid",
@@ -604,7 +604,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "spread_pips",
    "to_node": "stg_ticks_index",
    "to_column": "spread_pips",
@@ -613,7 +613,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "session",
    "to_node": "stg_ticks_index",
    "to_column": "session",
@@ -622,7 +622,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "source",
    "to_node": "stg_ticks_index",
    "to_column": "source",
@@ -631,7 +631,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "asset_class",
    "to_node": "stg_ticks_index",
    "to_column": "asset_class",
@@ -1063,7 +1063,7 @@
    "from_engine": "snowflake"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "symbol",
    "to_node": "stg_ticks_fx@clickhouse",
    "to_column": "symbol",
@@ -1072,7 +1072,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "ts_utc",
    "to_node": "stg_ticks_fx@clickhouse",
    "to_column": "ts_utc",
@@ -1081,7 +1081,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "bid",
    "to_node": "stg_ticks_fx@clickhouse",
    "to_column": "bid",
@@ -1090,7 +1090,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "ask",
    "to_node": "stg_ticks_fx@clickhouse",
    "to_column": "ask",
@@ -1099,7 +1099,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "mid",
    "to_node": "stg_ticks_fx@clickhouse",
    "to_column": "mid",
@@ -1108,7 +1108,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "spread_pips",
    "to_node": "stg_ticks_fx@clickhouse",
    "to_column": "spread_pips",
@@ -1117,7 +1117,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "session",
    "to_node": "stg_ticks_fx@clickhouse",
    "to_column": "session",
@@ -1126,7 +1126,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "source",
    "to_node": "stg_ticks_fx@clickhouse",
    "to_column": "source",
@@ -1135,7 +1135,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "symbol",
    "to_node": "stg_ticks_index@clickhouse",
    "to_column": "symbol",
@@ -1144,7 +1144,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "ts_utc",
    "to_node": "stg_ticks_index@clickhouse",
    "to_column": "ts_utc",
@@ -1153,7 +1153,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "bid",
    "to_node": "stg_ticks_index@clickhouse",
    "to_column": "bid",
@@ -1162,7 +1162,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "ask",
    "to_node": "stg_ticks_index@clickhouse",
    "to_column": "ask",
@@ -1171,7 +1171,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "mid",
    "to_node": "stg_ticks_index@clickhouse",
    "to_column": "mid",
@@ -1180,7 +1180,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "spread_pips",
    "to_node": "stg_ticks_index@clickhouse",
    "to_column": "spread_pips",
@@ -1189,7 +1189,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "session",
    "to_node": "stg_ticks_index@clickhouse",
    "to_column": "session",
@@ -1198,7 +1198,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "source",
    "to_node": "stg_ticks_index@clickhouse",
    "to_column": "source",
@@ -1207,7 +1207,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "symbol",
    "to_node": "stg_ticks_commodity@clickhouse",
    "to_column": "symbol",
@@ -1216,7 +1216,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "ts_utc",
    "to_node": "stg_ticks_commodity@clickhouse",
    "to_column": "ts_utc",
@@ -1225,7 +1225,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "bid",
    "to_node": "stg_ticks_commodity@clickhouse",
    "to_column": "bid",
@@ -1234,7 +1234,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "ask",
    "to_node": "stg_ticks_commodity@clickhouse",
    "to_column": "ask",
@@ -1243,7 +1243,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "mid",
    "to_node": "stg_ticks_commodity@clickhouse",
    "to_column": "mid",
@@ -1252,7 +1252,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "spread_pips",
    "to_node": "stg_ticks_commodity@clickhouse",
    "to_column": "spread_pips",
@@ -1261,7 +1261,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "session",
    "to_node": "stg_ticks_commodity@clickhouse",
    "to_column": "session",
@@ -1270,7 +1270,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "source",
    "to_node": "stg_ticks_commodity@clickhouse",
    "to_column": "source",
@@ -1279,7 +1279,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "symbol",
    "to_node": "stg_ticks_crypto@clickhouse",
    "to_column": "symbol",
@@ -1288,7 +1288,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "ts_utc",
    "to_node": "stg_ticks_crypto@clickhouse",
    "to_column": "ts_utc",
@@ -1297,7 +1297,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "bid",
    "to_node": "stg_ticks_crypto@clickhouse",
    "to_column": "bid",
@@ -1306,7 +1306,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "ask",
    "to_node": "stg_ticks_crypto@clickhouse",
    "to_column": "ask",
@@ -1315,7 +1315,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "mid",
    "to_node": "stg_ticks_crypto@clickhouse",
    "to_column": "mid",
@@ -1324,7 +1324,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "spread_pips",
    "to_node": "stg_ticks_crypto@clickhouse",
    "to_column": "spread_pips",
@@ -1333,7 +1333,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "session",
    "to_node": "stg_ticks_crypto@clickhouse",
    "to_column": "exchange_region",
@@ -1342,7 +1342,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "source",
    "to_node": "stg_ticks_crypto@clickhouse",
    "to_column": "source",
@@ -1829,6 +1829,15 @@
   },
   {
    "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "ts_utc",
+   "to_node": "serve_quote_board",
+   "to_column": "last_mid",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
    "from_column": "mid",
    "to_node": "serve_quote_board",
    "to_column": "last_mid",
@@ -1840,7 +1849,7 @@
    "from_node": "fct_tick_unified@clickhouse",
    "from_column": "ts_utc",
    "to_node": "serve_quote_board",
-   "to_column": "last_mid",
+   "to_column": "last_spread_pips",
    "kind": "derived",
    "to_engine": "clickhouse",
    "from_engine": "clickhouse"
@@ -1850,24 +1859,6 @@
    "from_column": "spread_pips",
    "to_node": "serve_quote_board",
    "to_column": "last_spread_pips",
-   "kind": "derived",
-   "to_engine": "clickhouse",
-   "from_engine": "clickhouse"
-  },
-  {
-   "from_node": "fct_tick_unified@clickhouse",
-   "from_column": "ts_utc",
-   "to_node": "serve_quote_board",
-   "to_column": "last_spread_pips",
-   "kind": "derived",
-   "to_engine": "clickhouse",
-   "from_engine": "clickhouse"
-  },
-  {
-   "from_node": "fct_tick_unified@clickhouse",
-   "from_column": "asset_class",
-   "to_node": "serve_quote_board",
-   "to_column": "avg_spread_1h",
    "kind": "derived",
    "to_engine": "clickhouse",
    "from_engine": "clickhouse"
@@ -1892,15 +1883,6 @@
   },
   {
    "from_node": "fct_tick_unified@clickhouse",
-   "from_column": "spread_pips",
-   "to_node": "serve_quote_board",
-   "to_column": "avg_spread_1h",
-   "kind": "derived",
-   "to_engine": "clickhouse",
-   "from_engine": "clickhouse"
-  },
-  {
-   "from_node": "fct_tick_unified@clickhouse",
    "from_column": "ts_utc",
    "to_node": "serve_quote_board",
    "to_column": "avg_spread_1h",
@@ -1912,6 +1894,24 @@
    "from_node": "fct_tick_unified@clickhouse",
    "from_column": "asset_class",
    "to_node": "serve_quote_board",
+   "to_column": "avg_spread_1h",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "spread_pips",
+   "to_node": "serve_quote_board",
+   "to_column": "avg_spread_1h",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "symbol",
+   "to_node": "serve_quote_board",
    "to_column": "last_ts_utc",
    "kind": "derived",
    "to_engine": "clickhouse",
@@ -1928,7 +1928,7 @@
   },
   {
    "from_node": "fct_tick_unified@clickhouse",
-   "from_column": "symbol",
+   "from_column": "asset_class",
    "to_node": "serve_quote_board",
    "to_column": "last_ts_utc",
    "kind": "derived",
@@ -1938,7 +1938,7 @@
  ],
  "crossings": [
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "symbol",
    "to_node": "stg_ticks_commodity",
    "to_column": "symbol",
@@ -1947,7 +1947,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "ts_utc",
    "to_node": "stg_ticks_commodity",
    "to_column": "ts_utc",
@@ -1956,7 +1956,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "bid",
    "to_node": "stg_ticks_commodity",
    "to_column": "bid",
@@ -1965,7 +1965,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "ask",
    "to_node": "stg_ticks_commodity",
    "to_column": "ask",
@@ -1974,7 +1974,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "mid",
    "to_node": "stg_ticks_commodity",
    "to_column": "mid",
@@ -1983,7 +1983,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "spread_pips",
    "to_node": "stg_ticks_commodity",
    "to_column": "spread_pips",
@@ -1992,7 +1992,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "session",
    "to_node": "stg_ticks_commodity",
    "to_column": "session",
@@ -2001,7 +2001,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "source",
    "to_node": "stg_ticks_commodity",
    "to_column": "source",
@@ -2010,7 +2010,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "asset_class",
    "to_node": "stg_ticks_commodity",
    "to_column": "asset_class",
@@ -2019,7 +2019,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "symbol",
    "to_node": "stg_ticks_crypto",
    "to_column": "symbol",
@@ -2028,7 +2028,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "ts_utc",
    "to_node": "stg_ticks_crypto",
    "to_column": "ts_utc",
@@ -2037,7 +2037,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "bid",
    "to_node": "stg_ticks_crypto",
    "to_column": "bid",
@@ -2046,7 +2046,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "ask",
    "to_node": "stg_ticks_crypto",
    "to_column": "ask",
@@ -2055,7 +2055,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "mid",
    "to_node": "stg_ticks_crypto",
    "to_column": "mid",
@@ -2064,7 +2064,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "spread_pips",
    "to_node": "stg_ticks_crypto",
    "to_column": "spread_pips",
@@ -2073,7 +2073,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "session",
    "to_node": "stg_ticks_crypto",
    "to_column": "exchange_region",
@@ -2082,7 +2082,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "source",
    "to_node": "stg_ticks_crypto",
    "to_column": "source",
@@ -2091,7 +2091,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "asset_class",
    "to_node": "stg_ticks_crypto",
    "to_column": "asset_class",
@@ -2100,7 +2100,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "symbol",
    "to_node": "stg_ticks_fx",
    "to_column": "symbol",
@@ -2109,7 +2109,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "ts_utc",
    "to_node": "stg_ticks_fx",
    "to_column": "ts_utc",
@@ -2118,7 +2118,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "bid",
    "to_node": "stg_ticks_fx",
    "to_column": "bid",
@@ -2127,7 +2127,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "ask",
    "to_node": "stg_ticks_fx",
    "to_column": "ask",
@@ -2136,7 +2136,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "mid",
    "to_node": "stg_ticks_fx",
    "to_column": "mid",
@@ -2145,7 +2145,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "spread_pips",
    "to_node": "stg_ticks_fx",
    "to_column": "spread_pips",
@@ -2154,7 +2154,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "session",
    "to_node": "stg_ticks_fx",
    "to_column": "session",
@@ -2163,7 +2163,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "source",
    "to_node": "stg_ticks_fx",
    "to_column": "source",
@@ -2172,7 +2172,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "symbol",
    "to_node": "stg_ticks_index",
    "to_column": "symbol",
@@ -2181,7 +2181,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "ts_utc",
    "to_node": "stg_ticks_index",
    "to_column": "ts_utc",
@@ -2190,7 +2190,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "bid",
    "to_node": "stg_ticks_index",
    "to_column": "bid",
@@ -2199,7 +2199,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "ask",
    "to_node": "stg_ticks_index",
    "to_column": "ask",
@@ -2208,7 +2208,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "mid",
    "to_node": "stg_ticks_index",
    "to_column": "mid",
@@ -2217,7 +2217,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "spread_pips",
    "to_node": "stg_ticks_index",
    "to_column": "spread_pips",
@@ -2226,7 +2226,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "session",
    "to_node": "stg_ticks_index",
    "to_column": "session",
@@ -2235,7 +2235,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "source",
    "to_node": "stg_ticks_index",
    "to_column": "source",
@@ -2244,7 +2244,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "asset_class",
    "to_node": "stg_ticks_index",
    "to_column": "asset_class",
@@ -2253,7 +2253,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "symbol",
    "to_node": "stg_ticks_fx@clickhouse",
    "to_column": "symbol",
@@ -2262,7 +2262,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "ts_utc",
    "to_node": "stg_ticks_fx@clickhouse",
    "to_column": "ts_utc",
@@ -2271,7 +2271,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "bid",
    "to_node": "stg_ticks_fx@clickhouse",
    "to_column": "bid",
@@ -2280,7 +2280,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "ask",
    "to_node": "stg_ticks_fx@clickhouse",
    "to_column": "ask",
@@ -2289,7 +2289,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "mid",
    "to_node": "stg_ticks_fx@clickhouse",
    "to_column": "mid",
@@ -2298,7 +2298,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "spread_pips",
    "to_node": "stg_ticks_fx@clickhouse",
    "to_column": "spread_pips",
@@ -2307,7 +2307,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "session",
    "to_node": "stg_ticks_fx@clickhouse",
    "to_column": "session",
@@ -2316,7 +2316,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_fx",
+   "from_node": "source:tick_fx",
    "from_column": "source",
    "to_node": "stg_ticks_fx@clickhouse",
    "to_column": "source",
@@ -2325,7 +2325,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "symbol",
    "to_node": "stg_ticks_index@clickhouse",
    "to_column": "symbol",
@@ -2334,7 +2334,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "ts_utc",
    "to_node": "stg_ticks_index@clickhouse",
    "to_column": "ts_utc",
@@ -2343,7 +2343,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "bid",
    "to_node": "stg_ticks_index@clickhouse",
    "to_column": "bid",
@@ -2352,7 +2352,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "ask",
    "to_node": "stg_ticks_index@clickhouse",
    "to_column": "ask",
@@ -2361,7 +2361,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "mid",
    "to_node": "stg_ticks_index@clickhouse",
    "to_column": "mid",
@@ -2370,7 +2370,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "spread_pips",
    "to_node": "stg_ticks_index@clickhouse",
    "to_column": "spread_pips",
@@ -2379,7 +2379,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "session",
    "to_node": "stg_ticks_index@clickhouse",
    "to_column": "session",
@@ -2388,7 +2388,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_index",
+   "from_node": "source:tick_index",
    "from_column": "source",
    "to_node": "stg_ticks_index@clickhouse",
    "to_column": "source",
@@ -2397,7 +2397,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "symbol",
    "to_node": "stg_ticks_commodity@clickhouse",
    "to_column": "symbol",
@@ -2406,7 +2406,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "ts_utc",
    "to_node": "stg_ticks_commodity@clickhouse",
    "to_column": "ts_utc",
@@ -2415,7 +2415,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "bid",
    "to_node": "stg_ticks_commodity@clickhouse",
    "to_column": "bid",
@@ -2424,7 +2424,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "ask",
    "to_node": "stg_ticks_commodity@clickhouse",
    "to_column": "ask",
@@ -2433,7 +2433,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "mid",
    "to_node": "stg_ticks_commodity@clickhouse",
    "to_column": "mid",
@@ -2442,7 +2442,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "spread_pips",
    "to_node": "stg_ticks_commodity@clickhouse",
    "to_column": "spread_pips",
@@ -2451,7 +2451,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "session",
    "to_node": "stg_ticks_commodity@clickhouse",
    "to_column": "session",
@@ -2460,7 +2460,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_commodity",
+   "from_node": "source:tick_commodity",
    "from_column": "source",
    "to_node": "stg_ticks_commodity@clickhouse",
    "to_column": "source",
@@ -2469,7 +2469,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "symbol",
    "to_node": "stg_ticks_crypto@clickhouse",
    "to_column": "symbol",
@@ -2478,7 +2478,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "ts_utc",
    "to_node": "stg_ticks_crypto@clickhouse",
    "to_column": "ts_utc",
@@ -2487,7 +2487,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "bid",
    "to_node": "stg_ticks_crypto@clickhouse",
    "to_column": "bid",
@@ -2496,7 +2496,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "ask",
    "to_node": "stg_ticks_crypto@clickhouse",
    "to_column": "ask",
@@ -2505,7 +2505,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "mid",
    "to_node": "stg_ticks_crypto@clickhouse",
    "to_column": "mid",
@@ -2514,7 +2514,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "spread_pips",
    "to_node": "stg_ticks_crypto@clickhouse",
    "to_column": "spread_pips",
@@ -2523,7 +2523,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "session",
    "to_node": "stg_ticks_crypto@clickhouse",
    "to_column": "exchange_region",
@@ -2532,7 +2532,7 @@
    "from_engine": "kafka_connect"
   },
   {
-   "from_node": "source:fct_tick_crypto",
+   "from_node": "source:tick_crypto",
    "from_column": "source",
    "to_node": "stg_ticks_crypto@clickhouse",
    "to_column": "source",
@@ -2548,10 +2548,10 @@
   "cross_engine_edges": 67,
   "not_built": [],
   "stitched_tables": [
-   "source:fct_tick_commodity",
-   "source:fct_tick_crypto",
-   "source:fct_tick_fx",
-   "source:fct_tick_index"
+   "source:tick_commodity",
+   "source:tick_crypto",
+   "source:tick_fx",
+   "source:tick_index"
   ]
  }
 }
