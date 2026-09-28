@@ -1793,7 +1793,7 @@
   },
   {
    "from_node": "fct_tick_unified@clickhouse",
-   "from_column": "bid",
+   "from_column": "ts_utc",
    "to_node": "serve_quote_board",
    "to_column": "last_bid",
    "kind": "derived",
@@ -1802,7 +1802,7 @@
   },
   {
    "from_node": "fct_tick_unified@clickhouse",
-   "from_column": "ts_utc",
+   "from_column": "bid",
    "to_node": "serve_quote_board",
    "to_column": "last_bid",
    "kind": "derived",
@@ -1829,7 +1829,7 @@
   },
   {
    "from_node": "fct_tick_unified@clickhouse",
-   "from_column": "ts_utc",
+   "from_column": "mid",
    "to_node": "serve_quote_board",
    "to_column": "last_mid",
    "kind": "derived",
@@ -1838,7 +1838,7 @@
   },
   {
    "from_node": "fct_tick_unified@clickhouse",
-   "from_column": "mid",
+   "from_column": "ts_utc",
    "to_node": "serve_quote_board",
    "to_column": "last_mid",
    "kind": "derived",
@@ -1875,15 +1875,6 @@
   {
    "from_node": "fct_tick_unified@clickhouse",
    "from_column": "symbol",
-   "to_node": "serve_quote_board",
-   "to_column": "avg_spread_1h",
-   "kind": "derived",
-   "to_engine": "clickhouse",
-   "from_engine": "clickhouse"
-  },
-  {
-   "from_node": "fct_tick_unified@clickhouse",
-   "from_column": "ts_utc",
    "to_node": "serve_quote_board",
    "to_column": "avg_spread_1h",
    "kind": "derived",
@@ -1901,6 +1892,15 @@
   },
   {
    "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "ts_utc",
+   "to_node": "serve_quote_board",
+   "to_column": "avg_spread_1h",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
    "from_column": "spread_pips",
    "to_node": "serve_quote_board",
    "to_column": "avg_spread_1h",
@@ -1910,7 +1910,7 @@
   },
   {
    "from_node": "fct_tick_unified@clickhouse",
-   "from_column": "symbol",
+   "from_column": "ts_utc",
    "to_node": "serve_quote_board",
    "to_column": "last_ts_utc",
    "kind": "derived",
@@ -1919,7 +1919,7 @@
   },
   {
    "from_node": "fct_tick_unified@clickhouse",
-   "from_column": "ts_utc",
+   "from_column": "symbol",
    "to_node": "serve_quote_board",
    "to_column": "last_ts_utc",
    "kind": "derived",
