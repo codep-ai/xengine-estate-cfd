@@ -1,0 +1,25 @@
+# Estate config for datapai-platform-be/scripts/xengine.py --estate — the CFD tick estate: ONE producer that is not a dbt project
+# (the Kafka Connect Iceberg sink, catalogued in Glue database `cfd`) and TWO dbt consumers reading the same Iceberg tables in place:
+# Snowflake (audit tier, Glue-backed Iceberg tables with AUTO_REFRESH) and ClickHouse (realtime/serving tier, iceberg() views).
+# Identity convention: glue:<db>.<table> (declared in each consumer's _sources.yml as meta.physical_identity).
+pipeline_id: cfd_xengine_mesh
+region: ap-southeast-2
+snowflake: {profile: datapai_snowflake, target: dev}
+
+# Glue-backed pointers in Snowflake for the sink-written tables. mode=glue: Snowflake follows Glue by itself; run once, re-run only
+# when a table is added to the lake.
+snowflake_sync:
+  - glue_database: cfd
+    database: DATAPAI
+    schema: CFD_LAKE
+    external_volume: CFD_LAKE_VOL
+    catalog_integration: CFD_OBJ_CAT
+    volume_base_url: s3://datapai-cfd-lake/
+    mode: glue
+    glue_catalog_integration: GLUE_STOCK_COMMON
+
+# Consumers only: the producer is the sink. Each entry = one repo's dbt artefacts (manifest.json + catalog.json from `dbt docs generate`).
+projects:
+  - {name: xengine-consumer-cfd-snowflake,  project_dir: /home/ec2-user/git/xengine-consumer-cfd-snowflake,  engine: snowflake,  dialect: snowflake,  target_dir: target}
+  - {name: xengine-consumer-cfd-clickhouse, project_dir: /home/ec2-user/git/xengine-consumer-cfd-clickhouse, engine: clickhouse, dialect: clickhouse, target_dir: target}
+lineage_out: lineage_xengine.json

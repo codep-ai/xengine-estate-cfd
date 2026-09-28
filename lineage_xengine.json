@@ -1,0 +1,2557 @@
+{
+ "engines": [
+  "snowflake",
+  "clickhouse"
+ ],
+ "skipped_engines": [],
+ "per_engine": {
+  "snowflake": {
+   "models": 6,
+   "edges": 82,
+   "unresolved": 0,
+   "degraded_columns": 0
+  },
+  "clickhouse": {
+   "models": 7,
+   "edges": 97,
+   "unresolved": 0,
+   "degraded_columns": 0
+  }
+ },
+ "projects": [
+  "xengine-consumer-cfd-clickhouse",
+  "xengine-consumer-cfd-snowflake"
+ ],
+ "nodes": {
+  "source:fct_tick_fx": {
+   "engine": "kafka_connect",
+   "project": "xengine-consumer-cfd-snowflake",
+   "role": "source",
+   "identity": "glue:cfd.fct_tick_fx",
+   "relation": "DATAPAI.CFD_LAKE.FCT_TICK_FX",
+   "produced_by_engine": "kafka_connect"
+  },
+  "source:fct_tick_crypto": {
+   "engine": "kafka_connect",
+   "project": "xengine-consumer-cfd-snowflake",
+   "role": "source",
+   "identity": "glue:cfd.fct_tick_crypto",
+   "relation": "DATAPAI.CFD_LAKE.FCT_TICK_CRYPTO",
+   "produced_by_engine": "kafka_connect"
+  },
+  "source:fct_tick_index": {
+   "engine": "kafka_connect",
+   "project": "xengine-consumer-cfd-snowflake",
+   "role": "source",
+   "identity": "glue:cfd.fct_tick_index",
+   "relation": "DATAPAI.CFD_LAKE.FCT_TICK_INDEX",
+   "produced_by_engine": "kafka_connect"
+  },
+  "source:fct_tick_commodity": {
+   "engine": "kafka_connect",
+   "project": "xengine-consumer-cfd-snowflake",
+   "role": "source",
+   "identity": "glue:cfd.fct_tick_commodity",
+   "relation": "DATAPAI.CFD_LAKE.FCT_TICK_COMMODITY",
+   "produced_by_engine": "kafka_connect"
+  },
+  "stg_ticks_commodity": {
+   "engine": "snowflake",
+   "project": "xengine-consumer-cfd-snowflake",
+   "role": "consumer",
+   "name": "stg_ticks_commodity",
+   "identity": "snowflake:datapai.cfd_mesh.stg_ticks_commodity",
+   "relation": "DATAPAI.CFD_MESH.stg_ticks_commodity",
+   "built": true,
+   "columns": {
+    "symbol": "PUBLIC",
+    "ts_utc": "PUBLIC",
+    "bid": "PUBLIC",
+    "ask": "PUBLIC",
+    "mid": "PUBLIC",
+    "spread_pips": "PUBLIC",
+    "session": "PUBLIC",
+    "source": "PUBLIC",
+    "asset_class": "PUBLIC",
+    "ingested_at": "PUBLIC"
+   }
+  },
+  "stg_ticks_crypto": {
+   "engine": "snowflake",
+   "project": "xengine-consumer-cfd-snowflake",
+   "role": "consumer",
+   "name": "stg_ticks_crypto",
+   "identity": "snowflake:datapai.cfd_mesh.stg_ticks_crypto",
+   "relation": "DATAPAI.CFD_MESH.stg_ticks_crypto",
+   "built": true,
+   "columns": {
+    "symbol": "PUBLIC",
+    "ts_utc": "PUBLIC",
+    "bid": "PUBLIC",
+    "ask": "PUBLIC",
+    "mid": "PUBLIC",
+    "spread_pips": "PUBLIC",
+    "exchange_region": "PUBLIC",
+    "source": "PUBLIC",
+    "asset_class": "PUBLIC",
+    "ingested_at": "PUBLIC"
+   }
+  },
+  "stg_ticks_fx": {
+   "engine": "snowflake",
+   "project": "xengine-consumer-cfd-snowflake",
+   "role": "consumer",
+   "name": "stg_ticks_fx",
+   "identity": "snowflake:datapai.cfd_mesh.stg_ticks_fx",
+   "relation": "DATAPAI.CFD_MESH.stg_ticks_fx",
+   "built": true,
+   "columns": {
+    "symbol": "PUBLIC",
+    "ts_utc": "PUBLIC",
+    "bid": "PUBLIC",
+    "ask": "PUBLIC",
+    "mid": "PUBLIC",
+    "spread_pips": "PUBLIC",
+    "session": "PUBLIC",
+    "source": "PUBLIC",
+    "asset_class": "PUBLIC",
+    "ingested_at": "PUBLIC"
+   }
+  },
+  "stg_ticks_index": {
+   "engine": "snowflake",
+   "project": "xengine-consumer-cfd-snowflake",
+   "role": "consumer",
+   "name": "stg_ticks_index",
+   "identity": "snowflake:datapai.cfd_mesh.stg_ticks_index",
+   "relation": "DATAPAI.CFD_MESH.stg_ticks_index",
+   "built": true,
+   "columns": {
+    "symbol": "PUBLIC",
+    "ts_utc": "PUBLIC",
+    "bid": "PUBLIC",
+    "ask": "PUBLIC",
+    "mid": "PUBLIC",
+    "spread_pips": "PUBLIC",
+    "session": "PUBLIC",
+    "source": "PUBLIC",
+    "asset_class": "PUBLIC",
+    "ingested_at": "PUBLIC"
+   }
+  },
+  "fct_tick_unified": {
+   "engine": "snowflake",
+   "project": "xengine-consumer-cfd-snowflake",
+   "role": "consumer",
+   "name": "fct_tick_unified",
+   "identity": "snowflake:datapai.cfd_mesh.fct_tick_unified",
+   "relation": "DATAPAI.CFD_MESH.fct_tick_unified",
+   "built": true,
+   "columns": {
+    "asset_class": "PUBLIC",
+    "symbol": "PUBLIC",
+    "ts_utc": "PUBLIC",
+    "bid": "PUBLIC",
+    "ask": "PUBLIC",
+    "mid": "PUBLIC",
+    "spread_pips": "PUBLIC",
+    "session": "PUBLIC",
+    "source": "PUBLIC",
+    "ingested_at": "PUBLIC"
+   }
+  },
+  "mart_spread_by_asset_hourly": {
+   "engine": "snowflake",
+   "project": "xengine-consumer-cfd-snowflake",
+   "role": "consumer",
+   "name": "mart_spread_by_asset_hourly",
+   "identity": "snowflake:datapai.cfd_mesh.mart_spread_by_asset_hourly",
+   "relation": "DATAPAI.CFD_MESH.mart_spread_by_asset_hourly",
+   "built": true,
+   "columns": {
+    "asset_class": "PUBLIC",
+    "symbol": "PUBLIC",
+    "event_hour": "PUBLIC",
+    "ticks": "PUBLIC",
+    "avg_spread_pips": "PUBLIC",
+    "min_spread_pips": "PUBLIC",
+    "max_spread_pips": "PUBLIC",
+    "avg_mid": "PUBLIC"
+   }
+  },
+  "stg_ticks_fx@clickhouse": {
+   "engine": "clickhouse",
+   "project": "xengine-consumer-cfd-clickhouse",
+   "role": "consumer",
+   "name": "stg_ticks_fx",
+   "identity": null,
+   "relation": ".cfd_mesh.stg_ticks_fx",
+   "built": true,
+   "columns": {
+    "symbol": "PUBLIC",
+    "ts_utc": "PUBLIC",
+    "bid": "PUBLIC",
+    "ask": "PUBLIC",
+    "mid": "PUBLIC",
+    "spread_pips": "PUBLIC",
+    "session": "PUBLIC",
+    "source": "PUBLIC",
+    "asset_class": "PUBLIC",
+    "ingested_at": "PUBLIC"
+   }
+  },
+  "stg_ticks_index@clickhouse": {
+   "engine": "clickhouse",
+   "project": "xengine-consumer-cfd-clickhouse",
+   "role": "consumer",
+   "name": "stg_ticks_index",
+   "identity": null,
+   "relation": ".cfd_mesh.stg_ticks_index",
+   "built": true,
+   "columns": {
+    "symbol": "PUBLIC",
+    "ts_utc": "PUBLIC",
+    "bid": "PUBLIC",
+    "ask": "PUBLIC",
+    "mid": "PUBLIC",
+    "spread_pips": "PUBLIC",
+    "session": "PUBLIC",
+    "source": "PUBLIC",
+    "asset_class": "PUBLIC",
+    "ingested_at": "PUBLIC"
+   }
+  },
+  "stg_ticks_commodity@clickhouse": {
+   "engine": "clickhouse",
+   "project": "xengine-consumer-cfd-clickhouse",
+   "role": "consumer",
+   "name": "stg_ticks_commodity",
+   "identity": null,
+   "relation": ".cfd_mesh.stg_ticks_commodity",
+   "built": true,
+   "columns": {
+    "symbol": "PUBLIC",
+    "ts_utc": "PUBLIC",
+    "bid": "PUBLIC",
+    "ask": "PUBLIC",
+    "mid": "PUBLIC",
+    "spread_pips": "PUBLIC",
+    "session": "PUBLIC",
+    "source": "PUBLIC",
+    "asset_class": "PUBLIC",
+    "ingested_at": "PUBLIC"
+   }
+  },
+  "stg_ticks_crypto@clickhouse": {
+   "engine": "clickhouse",
+   "project": "xengine-consumer-cfd-clickhouse",
+   "role": "consumer",
+   "name": "stg_ticks_crypto",
+   "identity": null,
+   "relation": ".cfd_mesh.stg_ticks_crypto",
+   "built": true,
+   "columns": {
+    "symbol": "PUBLIC",
+    "ts_utc": "PUBLIC",
+    "bid": "PUBLIC",
+    "ask": "PUBLIC",
+    "mid": "PUBLIC",
+    "spread_pips": "PUBLIC",
+    "exchange_region": "PUBLIC",
+    "source": "PUBLIC",
+    "asset_class": "PUBLIC",
+    "ingested_at": "PUBLIC"
+   }
+  },
+  "fct_tick_unified@clickhouse": {
+   "engine": "clickhouse",
+   "project": "xengine-consumer-cfd-clickhouse",
+   "role": "consumer",
+   "name": "fct_tick_unified",
+   "identity": null,
+   "relation": ".cfd_mesh.fct_tick_unified",
+   "built": true,
+   "columns": {
+    "asset_class": "PUBLIC",
+    "symbol": "PUBLIC",
+    "ts_utc": "PUBLIC",
+    "bid": "PUBLIC",
+    "ask": "PUBLIC",
+    "mid": "PUBLIC",
+    "spread_pips": "PUBLIC",
+    "session": "PUBLIC",
+    "source": "PUBLIC",
+    "ingested_at": "PUBLIC"
+   }
+  },
+  "mart_spread_by_asset_hourly@clickhouse": {
+   "engine": "clickhouse",
+   "project": "xengine-consumer-cfd-clickhouse",
+   "role": "consumer",
+   "name": "mart_spread_by_asset_hourly",
+   "identity": null,
+   "relation": ".cfd_mesh.mart_spread_by_asset_hourly",
+   "built": true,
+   "columns": {
+    "asset_class": "PUBLIC",
+    "symbol": "PUBLIC",
+    "event_hour": "PUBLIC",
+    "ticks": "PUBLIC",
+    "avg_spread_pips": "PUBLIC",
+    "min_spread_pips": "PUBLIC",
+    "max_spread_pips": "PUBLIC",
+    "avg_mid": "PUBLIC"
+   }
+  },
+  "serve_quote_board": {
+   "engine": "clickhouse",
+   "project": "xengine-consumer-cfd-clickhouse",
+   "role": "consumer",
+   "name": "serve_quote_board",
+   "identity": null,
+   "relation": ".cfd_mesh.serve_quote_board",
+   "built": true,
+   "columns": {
+    "asset_class": "PUBLIC",
+    "symbol": "PUBLIC",
+    "last_bid": "PUBLIC",
+    "last_ask": "PUBLIC",
+    "last_mid": "PUBLIC",
+    "last_spread_pips": "PUBLIC",
+    "avg_spread_1h": "PUBLIC",
+    "last_ts_utc": "PUBLIC"
+   }
+  }
+ },
+ "edges": [
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "symbol",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "ts_utc",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "ts_utc",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "bid",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "bid",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "ask",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "ask",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "mid",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "mid",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "spread_pips",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "spread_pips",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "session",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "session",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "source",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "source",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "asset_class",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "asset_class",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "symbol",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "ts_utc",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "ts_utc",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "bid",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "bid",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "ask",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "ask",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "mid",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "mid",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "spread_pips",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "spread_pips",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "session",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "exchange_region",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "source",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "source",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "asset_class",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "asset_class",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "symbol",
+   "to_node": "stg_ticks_fx",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "ts_utc",
+   "to_node": "stg_ticks_fx",
+   "to_column": "ts_utc",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "bid",
+   "to_node": "stg_ticks_fx",
+   "to_column": "bid",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "ask",
+   "to_node": "stg_ticks_fx",
+   "to_column": "ask",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "mid",
+   "to_node": "stg_ticks_fx",
+   "to_column": "mid",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "spread_pips",
+   "to_node": "stg_ticks_fx",
+   "to_column": "spread_pips",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "session",
+   "to_node": "stg_ticks_fx",
+   "to_column": "session",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "source",
+   "to_node": "stg_ticks_fx",
+   "to_column": "source",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "symbol",
+   "to_node": "stg_ticks_index",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "ts_utc",
+   "to_node": "stg_ticks_index",
+   "to_column": "ts_utc",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "bid",
+   "to_node": "stg_ticks_index",
+   "to_column": "bid",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "ask",
+   "to_node": "stg_ticks_index",
+   "to_column": "ask",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "mid",
+   "to_node": "stg_ticks_index",
+   "to_column": "mid",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "spread_pips",
+   "to_node": "stg_ticks_index",
+   "to_column": "spread_pips",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "session",
+   "to_node": "stg_ticks_index",
+   "to_column": "session",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "source",
+   "to_node": "stg_ticks_index",
+   "to_column": "source",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "asset_class",
+   "to_node": "stg_ticks_index",
+   "to_column": "asset_class",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "stg_ticks_commodity",
+   "from_column": "asset_class",
+   "to_node": "fct_tick_unified",
+   "to_column": "asset_class",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_index",
+   "from_column": "asset_class",
+   "to_node": "fct_tick_unified",
+   "to_column": "asset_class",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_crypto",
+   "from_column": "asset_class",
+   "to_node": "fct_tick_unified",
+   "to_column": "asset_class",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_fx",
+   "from_column": "asset_class",
+   "to_node": "fct_tick_unified",
+   "to_column": "asset_class",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_commodity",
+   "from_column": "symbol",
+   "to_node": "fct_tick_unified",
+   "to_column": "symbol",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_index",
+   "from_column": "symbol",
+   "to_node": "fct_tick_unified",
+   "to_column": "symbol",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_crypto",
+   "from_column": "symbol",
+   "to_node": "fct_tick_unified",
+   "to_column": "symbol",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_fx",
+   "from_column": "symbol",
+   "to_node": "fct_tick_unified",
+   "to_column": "symbol",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_commodity",
+   "from_column": "ts_utc",
+   "to_node": "fct_tick_unified",
+   "to_column": "ts_utc",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_index",
+   "from_column": "ts_utc",
+   "to_node": "fct_tick_unified",
+   "to_column": "ts_utc",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_crypto",
+   "from_column": "ts_utc",
+   "to_node": "fct_tick_unified",
+   "to_column": "ts_utc",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_fx",
+   "from_column": "ts_utc",
+   "to_node": "fct_tick_unified",
+   "to_column": "ts_utc",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_commodity",
+   "from_column": "bid",
+   "to_node": "fct_tick_unified",
+   "to_column": "bid",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_index",
+   "from_column": "bid",
+   "to_node": "fct_tick_unified",
+   "to_column": "bid",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_crypto",
+   "from_column": "bid",
+   "to_node": "fct_tick_unified",
+   "to_column": "bid",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_fx",
+   "from_column": "bid",
+   "to_node": "fct_tick_unified",
+   "to_column": "bid",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_commodity",
+   "from_column": "ask",
+   "to_node": "fct_tick_unified",
+   "to_column": "ask",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_index",
+   "from_column": "ask",
+   "to_node": "fct_tick_unified",
+   "to_column": "ask",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_crypto",
+   "from_column": "ask",
+   "to_node": "fct_tick_unified",
+   "to_column": "ask",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_fx",
+   "from_column": "ask",
+   "to_node": "fct_tick_unified",
+   "to_column": "ask",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_commodity",
+   "from_column": "mid",
+   "to_node": "fct_tick_unified",
+   "to_column": "mid",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_index",
+   "from_column": "mid",
+   "to_node": "fct_tick_unified",
+   "to_column": "mid",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_crypto",
+   "from_column": "mid",
+   "to_node": "fct_tick_unified",
+   "to_column": "mid",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_fx",
+   "from_column": "mid",
+   "to_node": "fct_tick_unified",
+   "to_column": "mid",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_commodity",
+   "from_column": "spread_pips",
+   "to_node": "fct_tick_unified",
+   "to_column": "spread_pips",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_index",
+   "from_column": "spread_pips",
+   "to_node": "fct_tick_unified",
+   "to_column": "spread_pips",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_crypto",
+   "from_column": "spread_pips",
+   "to_node": "fct_tick_unified",
+   "to_column": "spread_pips",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_fx",
+   "from_column": "spread_pips",
+   "to_node": "fct_tick_unified",
+   "to_column": "spread_pips",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_commodity",
+   "from_column": "session",
+   "to_node": "fct_tick_unified",
+   "to_column": "session",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_index",
+   "from_column": "session",
+   "to_node": "fct_tick_unified",
+   "to_column": "session",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_crypto",
+   "from_column": "exchange_region",
+   "to_node": "fct_tick_unified",
+   "to_column": "session",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_fx",
+   "from_column": "session",
+   "to_node": "fct_tick_unified",
+   "to_column": "session",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_commodity",
+   "from_column": "source",
+   "to_node": "fct_tick_unified",
+   "to_column": "source",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_index",
+   "from_column": "source",
+   "to_node": "fct_tick_unified",
+   "to_column": "source",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_crypto",
+   "from_column": "source",
+   "to_node": "fct_tick_unified",
+   "to_column": "source",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_fx",
+   "from_column": "source",
+   "to_node": "fct_tick_unified",
+   "to_column": "source",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_commodity",
+   "from_column": "ingested_at",
+   "to_node": "fct_tick_unified",
+   "to_column": "ingested_at",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_index",
+   "from_column": "ingested_at",
+   "to_node": "fct_tick_unified",
+   "to_column": "ingested_at",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_crypto",
+   "from_column": "ingested_at",
+   "to_node": "fct_tick_unified",
+   "to_column": "ingested_at",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "stg_ticks_fx",
+   "from_column": "ingested_at",
+   "to_node": "fct_tick_unified",
+   "to_column": "ingested_at",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "fct_tick_unified",
+   "from_column": "asset_class",
+   "to_node": "mart_spread_by_asset_hourly",
+   "to_column": "asset_class",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "fct_tick_unified",
+   "from_column": "symbol",
+   "to_node": "mart_spread_by_asset_hourly",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "fct_tick_unified",
+   "from_column": "ts_utc",
+   "to_node": "mart_spread_by_asset_hourly",
+   "to_column": "event_hour",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "fct_tick_unified",
+   "from_column": "spread_pips",
+   "to_node": "mart_spread_by_asset_hourly",
+   "to_column": "avg_spread_pips",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "fct_tick_unified",
+   "from_column": "spread_pips",
+   "to_node": "mart_spread_by_asset_hourly",
+   "to_column": "min_spread_pips",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "fct_tick_unified",
+   "from_column": "spread_pips",
+   "to_node": "mart_spread_by_asset_hourly",
+   "to_column": "max_spread_pips",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "fct_tick_unified",
+   "from_column": "mid",
+   "to_node": "mart_spread_by_asset_hourly",
+   "to_column": "avg_mid",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "snowflake"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "symbol",
+   "to_node": "stg_ticks_fx@clickhouse",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "ts_utc",
+   "to_node": "stg_ticks_fx@clickhouse",
+   "to_column": "ts_utc",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "bid",
+   "to_node": "stg_ticks_fx@clickhouse",
+   "to_column": "bid",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "ask",
+   "to_node": "stg_ticks_fx@clickhouse",
+   "to_column": "ask",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "mid",
+   "to_node": "stg_ticks_fx@clickhouse",
+   "to_column": "mid",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "spread_pips",
+   "to_node": "stg_ticks_fx@clickhouse",
+   "to_column": "spread_pips",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "session",
+   "to_node": "stg_ticks_fx@clickhouse",
+   "to_column": "session",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "source",
+   "to_node": "stg_ticks_fx@clickhouse",
+   "to_column": "source",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "symbol",
+   "to_node": "stg_ticks_index@clickhouse",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "ts_utc",
+   "to_node": "stg_ticks_index@clickhouse",
+   "to_column": "ts_utc",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "bid",
+   "to_node": "stg_ticks_index@clickhouse",
+   "to_column": "bid",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "ask",
+   "to_node": "stg_ticks_index@clickhouse",
+   "to_column": "ask",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "mid",
+   "to_node": "stg_ticks_index@clickhouse",
+   "to_column": "mid",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "spread_pips",
+   "to_node": "stg_ticks_index@clickhouse",
+   "to_column": "spread_pips",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "session",
+   "to_node": "stg_ticks_index@clickhouse",
+   "to_column": "session",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "source",
+   "to_node": "stg_ticks_index@clickhouse",
+   "to_column": "source",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "symbol",
+   "to_node": "stg_ticks_commodity@clickhouse",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "ts_utc",
+   "to_node": "stg_ticks_commodity@clickhouse",
+   "to_column": "ts_utc",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "bid",
+   "to_node": "stg_ticks_commodity@clickhouse",
+   "to_column": "bid",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "ask",
+   "to_node": "stg_ticks_commodity@clickhouse",
+   "to_column": "ask",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "mid",
+   "to_node": "stg_ticks_commodity@clickhouse",
+   "to_column": "mid",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "spread_pips",
+   "to_node": "stg_ticks_commodity@clickhouse",
+   "to_column": "spread_pips",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "session",
+   "to_node": "stg_ticks_commodity@clickhouse",
+   "to_column": "session",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "source",
+   "to_node": "stg_ticks_commodity@clickhouse",
+   "to_column": "source",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "symbol",
+   "to_node": "stg_ticks_crypto@clickhouse",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "ts_utc",
+   "to_node": "stg_ticks_crypto@clickhouse",
+   "to_column": "ts_utc",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "bid",
+   "to_node": "stg_ticks_crypto@clickhouse",
+   "to_column": "bid",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "ask",
+   "to_node": "stg_ticks_crypto@clickhouse",
+   "to_column": "ask",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "mid",
+   "to_node": "stg_ticks_crypto@clickhouse",
+   "to_column": "mid",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "spread_pips",
+   "to_node": "stg_ticks_crypto@clickhouse",
+   "to_column": "spread_pips",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "session",
+   "to_node": "stg_ticks_crypto@clickhouse",
+   "to_column": "exchange_region",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "source",
+   "to_node": "stg_ticks_crypto@clickhouse",
+   "to_column": "source",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "stg_ticks_commodity@clickhouse",
+   "from_column": "asset_class",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "asset_class",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_index@clickhouse",
+   "from_column": "asset_class",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "asset_class",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_crypto@clickhouse",
+   "from_column": "asset_class",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "asset_class",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_fx@clickhouse",
+   "from_column": "asset_class",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "asset_class",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_commodity@clickhouse",
+   "from_column": "symbol",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "symbol",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_index@clickhouse",
+   "from_column": "symbol",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "symbol",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_crypto@clickhouse",
+   "from_column": "symbol",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "symbol",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_fx@clickhouse",
+   "from_column": "symbol",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "symbol",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_commodity@clickhouse",
+   "from_column": "ts_utc",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "ts_utc",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_index@clickhouse",
+   "from_column": "ts_utc",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "ts_utc",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_crypto@clickhouse",
+   "from_column": "ts_utc",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "ts_utc",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_fx@clickhouse",
+   "from_column": "ts_utc",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "ts_utc",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_commodity@clickhouse",
+   "from_column": "bid",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "bid",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_index@clickhouse",
+   "from_column": "bid",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "bid",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_crypto@clickhouse",
+   "from_column": "bid",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "bid",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_fx@clickhouse",
+   "from_column": "bid",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "bid",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_commodity@clickhouse",
+   "from_column": "ask",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "ask",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_index@clickhouse",
+   "from_column": "ask",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "ask",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_crypto@clickhouse",
+   "from_column": "ask",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "ask",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_fx@clickhouse",
+   "from_column": "ask",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "ask",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_commodity@clickhouse",
+   "from_column": "mid",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "mid",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_index@clickhouse",
+   "from_column": "mid",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "mid",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_crypto@clickhouse",
+   "from_column": "mid",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "mid",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_fx@clickhouse",
+   "from_column": "mid",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "mid",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_commodity@clickhouse",
+   "from_column": "spread_pips",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "spread_pips",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_index@clickhouse",
+   "from_column": "spread_pips",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "spread_pips",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_crypto@clickhouse",
+   "from_column": "spread_pips",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "spread_pips",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_fx@clickhouse",
+   "from_column": "spread_pips",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "spread_pips",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_commodity@clickhouse",
+   "from_column": "session",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "session",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_index@clickhouse",
+   "from_column": "session",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "session",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_crypto@clickhouse",
+   "from_column": "exchange_region",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "session",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_fx@clickhouse",
+   "from_column": "session",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "session",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_commodity@clickhouse",
+   "from_column": "source",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "source",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_index@clickhouse",
+   "from_column": "source",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "source",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_crypto@clickhouse",
+   "from_column": "source",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "source",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_fx@clickhouse",
+   "from_column": "source",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "source",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_commodity@clickhouse",
+   "from_column": "ingested_at",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "ingested_at",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_index@clickhouse",
+   "from_column": "ingested_at",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "ingested_at",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_crypto@clickhouse",
+   "from_column": "ingested_at",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "ingested_at",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "stg_ticks_fx@clickhouse",
+   "from_column": "ingested_at",
+   "to_node": "fct_tick_unified@clickhouse",
+   "to_column": "ingested_at",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "asset_class",
+   "to_node": "mart_spread_by_asset_hourly@clickhouse",
+   "to_column": "asset_class",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "symbol",
+   "to_node": "mart_spread_by_asset_hourly@clickhouse",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "ts_utc",
+   "to_node": "mart_spread_by_asset_hourly@clickhouse",
+   "to_column": "event_hour",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "spread_pips",
+   "to_node": "mart_spread_by_asset_hourly@clickhouse",
+   "to_column": "avg_spread_pips",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "spread_pips",
+   "to_node": "mart_spread_by_asset_hourly@clickhouse",
+   "to_column": "min_spread_pips",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "spread_pips",
+   "to_node": "mart_spread_by_asset_hourly@clickhouse",
+   "to_column": "max_spread_pips",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "mid",
+   "to_node": "mart_spread_by_asset_hourly@clickhouse",
+   "to_column": "avg_mid",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "asset_class",
+   "to_node": "serve_quote_board",
+   "to_column": "asset_class",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "symbol",
+   "to_node": "serve_quote_board",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "bid",
+   "to_node": "serve_quote_board",
+   "to_column": "last_bid",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "ts_utc",
+   "to_node": "serve_quote_board",
+   "to_column": "last_bid",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "ts_utc",
+   "to_node": "serve_quote_board",
+   "to_column": "last_ask",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "ask",
+   "to_node": "serve_quote_board",
+   "to_column": "last_ask",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "mid",
+   "to_node": "serve_quote_board",
+   "to_column": "last_mid",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "ts_utc",
+   "to_node": "serve_quote_board",
+   "to_column": "last_mid",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "spread_pips",
+   "to_node": "serve_quote_board",
+   "to_column": "last_spread_pips",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "ts_utc",
+   "to_node": "serve_quote_board",
+   "to_column": "last_spread_pips",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "asset_class",
+   "to_node": "serve_quote_board",
+   "to_column": "avg_spread_1h",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "ts_utc",
+   "to_node": "serve_quote_board",
+   "to_column": "avg_spread_1h",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "symbol",
+   "to_node": "serve_quote_board",
+   "to_column": "avg_spread_1h",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "spread_pips",
+   "to_node": "serve_quote_board",
+   "to_column": "avg_spread_1h",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "ts_utc",
+   "to_node": "serve_quote_board",
+   "to_column": "avg_spread_1h",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "asset_class",
+   "to_node": "serve_quote_board",
+   "to_column": "last_ts_utc",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "ts_utc",
+   "to_node": "serve_quote_board",
+   "to_column": "last_ts_utc",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  },
+  {
+   "from_node": "fct_tick_unified@clickhouse",
+   "from_column": "symbol",
+   "to_node": "serve_quote_board",
+   "to_column": "last_ts_utc",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "clickhouse"
+  }
+ ],
+ "crossings": [
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "symbol",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "ts_utc",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "ts_utc",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "bid",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "bid",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "ask",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "ask",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "mid",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "mid",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "spread_pips",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "spread_pips",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "session",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "session",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "source",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "source",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "asset_class",
+   "to_node": "stg_ticks_commodity",
+   "to_column": "asset_class",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "symbol",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "ts_utc",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "ts_utc",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "bid",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "bid",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "ask",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "ask",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "mid",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "mid",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "spread_pips",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "spread_pips",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "session",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "exchange_region",
+   "kind": "derived",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "source",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "source",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "asset_class",
+   "to_node": "stg_ticks_crypto",
+   "to_column": "asset_class",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "symbol",
+   "to_node": "stg_ticks_fx",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "ts_utc",
+   "to_node": "stg_ticks_fx",
+   "to_column": "ts_utc",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "bid",
+   "to_node": "stg_ticks_fx",
+   "to_column": "bid",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "ask",
+   "to_node": "stg_ticks_fx",
+   "to_column": "ask",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "mid",
+   "to_node": "stg_ticks_fx",
+   "to_column": "mid",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "spread_pips",
+   "to_node": "stg_ticks_fx",
+   "to_column": "spread_pips",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "session",
+   "to_node": "stg_ticks_fx",
+   "to_column": "session",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "source",
+   "to_node": "stg_ticks_fx",
+   "to_column": "source",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "symbol",
+   "to_node": "stg_ticks_index",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "ts_utc",
+   "to_node": "stg_ticks_index",
+   "to_column": "ts_utc",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "bid",
+   "to_node": "stg_ticks_index",
+   "to_column": "bid",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "ask",
+   "to_node": "stg_ticks_index",
+   "to_column": "ask",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "mid",
+   "to_node": "stg_ticks_index",
+   "to_column": "mid",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "spread_pips",
+   "to_node": "stg_ticks_index",
+   "to_column": "spread_pips",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "session",
+   "to_node": "stg_ticks_index",
+   "to_column": "session",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "source",
+   "to_node": "stg_ticks_index",
+   "to_column": "source",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "asset_class",
+   "to_node": "stg_ticks_index",
+   "to_column": "asset_class",
+   "kind": "passthrough",
+   "to_engine": "snowflake",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "symbol",
+   "to_node": "stg_ticks_fx@clickhouse",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "ts_utc",
+   "to_node": "stg_ticks_fx@clickhouse",
+   "to_column": "ts_utc",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "bid",
+   "to_node": "stg_ticks_fx@clickhouse",
+   "to_column": "bid",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "ask",
+   "to_node": "stg_ticks_fx@clickhouse",
+   "to_column": "ask",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "mid",
+   "to_node": "stg_ticks_fx@clickhouse",
+   "to_column": "mid",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "spread_pips",
+   "to_node": "stg_ticks_fx@clickhouse",
+   "to_column": "spread_pips",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "session",
+   "to_node": "stg_ticks_fx@clickhouse",
+   "to_column": "session",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_fx",
+   "from_column": "source",
+   "to_node": "stg_ticks_fx@clickhouse",
+   "to_column": "source",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "symbol",
+   "to_node": "stg_ticks_index@clickhouse",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "ts_utc",
+   "to_node": "stg_ticks_index@clickhouse",
+   "to_column": "ts_utc",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "bid",
+   "to_node": "stg_ticks_index@clickhouse",
+   "to_column": "bid",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "ask",
+   "to_node": "stg_ticks_index@clickhouse",
+   "to_column": "ask",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "mid",
+   "to_node": "stg_ticks_index@clickhouse",
+   "to_column": "mid",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "spread_pips",
+   "to_node": "stg_ticks_index@clickhouse",
+   "to_column": "spread_pips",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "session",
+   "to_node": "stg_ticks_index@clickhouse",
+   "to_column": "session",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_index",
+   "from_column": "source",
+   "to_node": "stg_ticks_index@clickhouse",
+   "to_column": "source",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "symbol",
+   "to_node": "stg_ticks_commodity@clickhouse",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "ts_utc",
+   "to_node": "stg_ticks_commodity@clickhouse",
+   "to_column": "ts_utc",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "bid",
+   "to_node": "stg_ticks_commodity@clickhouse",
+   "to_column": "bid",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "ask",
+   "to_node": "stg_ticks_commodity@clickhouse",
+   "to_column": "ask",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "mid",
+   "to_node": "stg_ticks_commodity@clickhouse",
+   "to_column": "mid",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "spread_pips",
+   "to_node": "stg_ticks_commodity@clickhouse",
+   "to_column": "spread_pips",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "session",
+   "to_node": "stg_ticks_commodity@clickhouse",
+   "to_column": "session",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_commodity",
+   "from_column": "source",
+   "to_node": "stg_ticks_commodity@clickhouse",
+   "to_column": "source",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "symbol",
+   "to_node": "stg_ticks_crypto@clickhouse",
+   "to_column": "symbol",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "ts_utc",
+   "to_node": "stg_ticks_crypto@clickhouse",
+   "to_column": "ts_utc",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "bid",
+   "to_node": "stg_ticks_crypto@clickhouse",
+   "to_column": "bid",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "ask",
+   "to_node": "stg_ticks_crypto@clickhouse",
+   "to_column": "ask",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "mid",
+   "to_node": "stg_ticks_crypto@clickhouse",
+   "to_column": "mid",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "spread_pips",
+   "to_node": "stg_ticks_crypto@clickhouse",
+   "to_column": "spread_pips",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "session",
+   "to_node": "stg_ticks_crypto@clickhouse",
+   "to_column": "exchange_region",
+   "kind": "derived",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  },
+  {
+   "from_node": "source:fct_tick_crypto",
+   "from_column": "source",
+   "to_node": "stg_ticks_crypto@clickhouse",
+   "to_column": "source",
+   "kind": "passthrough",
+   "to_engine": "clickhouse",
+   "from_engine": "kafka_connect"
+  }
+ ],
+ "unresolved": [],
+ "summary": {
+  "nodes": 17,
+  "edges": 179,
+  "cross_engine_edges": 67,
+  "not_built": [],
+  "stitched_tables": [
+   "source:fct_tick_commodity",
+   "source:fct_tick_crypto",
+   "source:fct_tick_fx",
+   "source:fct_tick_index"
+  ]
+ }
+}
