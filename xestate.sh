@@ -2,6 +2,7 @@
 # xestate — run the whole estate from its estate.yml with one command (one per team repo is xdbt.sh; this is the shared one).
 #   ./xestate.sh build     dbt build + docs generate in every project of estate.yml, producer first (the order in the file)
 #   ./xestate.sh docs      docs generate only (refresh artefacts without rebuilding tables)
+#   ./xestate.sh glue-sync Glue pointers for Snowflake-written marts (defer-to-lake for DuckDB dev; Python/Athena readers)
 #   ./xestate.sh sync      Snowflake pointers for the raw layer (snowflake_sync in estate.yml; once, or when a raw table is added)
 #   ./xestate.sh lineage   stitch every project's manifest+catalog into one column-lineage graph, persist it (--to-db), copy the JSON
 #                          beside the public page when PUBLISH_DIR is set (default: none)
@@ -33,6 +34,7 @@ case "$cmd" in
   build)   run_dbt build; run_dbt "docs generate" ;;
   docs)    run_dbt "docs generate" ;;
   sync)    (cd "$X" && "$PY" scripts/xengine.py snowflake-sync --estate "$ESTATE") ;;
+  glue-sync) (cd "$X" && "$PY" scripts/xengine.py glue-sync --estate "$ESTATE") ;;   # prod marts -> Glue pointers (defer-to-lake)
   lineage) (cd "$X" && "$PY" scripts/xengine.py lineage --estate "$ESTATE" --to-db)
            out="$HERE/$("$PY" -c "import sys,yaml; print(yaml.safe_load(open(sys.argv[1])).get('lineage_out','lineage_xengine.json'))" "$ESTATE")"
            "$PY" -c "import json,sys; s=json.load(open(sys.argv[1]))['summary']; print('lineage:', s['nodes'], 'tables |', s['edges'], 'column edges |', s['cross_engine_edges'], 'cross-engine |', len(s['not_built']), 'not built')" "$out"

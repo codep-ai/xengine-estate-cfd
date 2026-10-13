@@ -8,6 +8,10 @@ snowflake: {profile: datapai_snowflake, target: dev}
 
 # Glue-backed pointers in Snowflake for the sink-written tables. mode=glue: Snowflake follows Glue by itself; run once, re-run only
 # when a table is added to the lake.
+# Snowflake-written Iceberg marts -> Glue pointers (defer-to-lake: DuckDB dev reads PROD marts in place; Python/Athena too). Re-run after each prod build.
+glue_sync:
+  - {database: DATAPAI, schemas: [CFD_MESH], glue_database: cfd_mesh}
+
 snowflake_sync:
   - glue_database: cfd
     database: DATAPAI
