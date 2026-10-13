@@ -31,7 +31,7 @@ run_dbt() { local what="$1"; while read -r name dir bin pdir; do
 done < <(projects); }
 cmd="${1:-help}"
 case "$cmd" in
-  build)   run_dbt build; run_dbt "docs generate" ;;
+  build)   run_dbt build; run_dbt "docs generate"; "$0" glue-sync ;;   # prod build -> refresh the Glue pointers of Snowflake-written marts (defer-to-lake, Python/Athena readers)
   docs)    run_dbt "docs generate" ;;
   sync)    (cd "$X" && "$PY" scripts/xengine.py snowflake-sync --estate "$ESTATE") ;;
   glue-sync) (cd "$X" && "$PY" scripts/xengine.py glue-sync --estate "$ESTATE") ;;   # prod marts -> Glue pointers (defer-to-lake)
