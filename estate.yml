@@ -10,7 +10,11 @@ snowflake: {profile: datapai_snowflake, target: dev}
 # when a table is added to the lake.
 # Snowflake-written Iceberg marts -> Glue pointers (defer-to-lake: DuckDB dev reads PROD marts in place; Python/Athena too). Re-run after each prod build.
 glue_sync:
-  - {database: DATAPAI, schemas: [CFD_MESH], glue_database: cfd_mesh}
+  - {database: DATAPAI, schemas: [CFD_MESH], glue_database: cfd_mesh}          # prod marts: Python/Athena readers under Lake Formation
+  - {database: DATAPAI, schemas: [CFD_MESH_DEV], glue_database: cfd_mesh_dev}  # DEV lake: what DuckDB dev targets defer to (never prod)
+# Dev must not read prod: the prod build refreshes a sampled, policy-masked copy of the marts into CFD_MESH_DEV (Snowflake-managed Iceberg).
+dev_lake: {database: DATAPAI, schema: CFD_MESH, dev_schema: CFD_MESH_DEV, external_volume: CFD_LAKE_VOL, base_location: _xengine_cfd_dev,
+           sample_percent: 20, tables: [fct_tick_unified, mart_spread_by_asset_hourly]}
 
 snowflake_sync:
   - glue_database: cfd

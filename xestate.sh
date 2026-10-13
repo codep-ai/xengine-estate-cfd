@@ -31,10 +31,11 @@ run_dbt() { local what="$1"; while read -r name dir bin pdir; do
 done < <(projects); }
 cmd="${1:-help}"
 case "$cmd" in
-  build)   run_dbt build; run_dbt "docs generate"; "$0" glue-sync ;;   # prod build -> refresh the Glue pointers of Snowflake-written marts (defer-to-lake, Python/Athena readers)
+  build)   run_dbt build; run_dbt "docs generate"; "$0" dev-lake; "$0" glue-sync ;;   # prod build -> refresh the Glue pointers of Snowflake-written marts (defer-to-lake, Python/Athena readers)
   docs)    run_dbt "docs generate" ;;
   sync)    (cd "$X" && "$PY" scripts/xengine.py snowflake-sync --estate "$ESTATE") ;;
-  glue-sync) (cd "$X" && "$PY" scripts/xengine.py glue-sync --estate "$ESTATE") ;;   # prod marts -> Glue pointers (defer-to-lake)
+  dev-lake) (cd "$X" && "$PY" scripts/xengine.py dev-lake --estate "$ESTATE") ;;   # sampled, masked DEV copy of the marts (DuckDB dev defers here, not prod)
+  glue-sync) (cd "$X" && "$PY" scripts/xengine.py glue-sync --estate "$ESTATE" && "$PY" scripts/xengine.py classify-glue --estate "$ESTATE") ;;   # prod marts -> Glue pointers + column sensitivity (Glue params + LF-Tags)
   lineage) (cd "$X" && "$PY" scripts/xengine.py lineage --estate "$ESTATE" --to-db)
            out="$HERE/$("$PY" -c "import sys,yaml; print(yaml.safe_load(open(sys.argv[1])).get('lineage_out','lineage_xengine.json'))" "$ESTATE")"
            "$PY" -c "import json,sys; s=json.load(open(sys.argv[1]))['summary']; print('lineage:', s['nodes'], 'tables |', s['edges'], 'column edges |', s['cross_engine_edges'], 'cross-engine |', len(s['not_built']), 'not built')" "$out"
