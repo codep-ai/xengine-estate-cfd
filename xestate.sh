@@ -15,10 +15,19 @@ unset DBT_PROFILE DBT_TARGET DBT_PROJECT_PATH DBT_PROJECT_DIR
 export DBT_PROFILES_DIR=/home/ec2-user/.dbt AWS_DEFAULT_REGION=ap-southeast-2
 projects() { "$PY" - "$ESTATE" <<'PYEOF'
 import sys, yaml
-for p in yaml.safe_load(open(sys.argv[1]))["projects"]: print(p["name"], p["project_dir"])
+for p in yaml.safe_load(open(sys.argv[1]))["projects"]: print(p["name"], p["project_dir"], p.get("dbt_bin", "/home/ec2-user/venv_ai_etl/bin/dbt"), p.get("profiles_dir", "/home/ec2-user/.dbt"))
 PYEOF
 }
-run_dbt() { local what="$1"; while read -r name dir; do echo "== $name ($what)"; (cd "$dir" && "$(dirname "$PY")/dbt" $what); done < <(projects); }
+# per-project dbt (v1 or v2) + profiles dir from estate.yml. dbt v2 (dbt-oss) writes catalog.json only via `compile --write-catalog`
+# (its `docs generate` builds the Parquet info schema instead), and the stitcher needs catalog.json + manifest.json from every project.
+run_dbt() { local what="$1"; while read -r name dir bin pdir; do
+  echo "== $name ($what) [$(basename $(dirname $(dirname $bin)))]"
+  if [ "$what" = "docs generate" ] && "$bin" --version 2>/dev/null | grep -q -E "dbt-oss|dbt 2\.|installed: 2\."; then
+    (cd "$dir" && DBT_PROFILES_DIR="$pdir" "$bin" compile --write-catalog -q && DBT_PROFILES_DIR="$pdir" "$bin" docs generate -q && echo "   v2: catalog.json + manifest.json + info_schema written")
+  else
+    (cd "$dir" && DBT_PROFILES_DIR="$pdir" "$bin" $what)
+  fi
+done < <(projects); }
 cmd="${1:-help}"
 case "$cmd" in
   build)   run_dbt build; run_dbt "docs generate" ;;

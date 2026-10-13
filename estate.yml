@@ -19,7 +19,8 @@ snowflake_sync:
     glue_catalog_integration: GLUE_STOCK_COMMON
 
 # Consumers only: the producer is the sink. Each entry = one repo's dbt artefacts (manifest.json + catalog.json from `dbt docs generate`).
+# dbt_bin / profiles_dir per project (2026-10-13): each team picks its dbt — v1 venv for Athena (no v2 adapter) and ClickHouse (v2 private beta), dbt-oss v2 for Snowflake/Databricks.
 projects:
-  - {name: xengine-consumer-cfd-snowflake,  project_dir: /home/ec2-user/git/xengine-consumer-cfd-snowflake,  engine: snowflake,  dialect: snowflake,  target_dir: target}
-  - {name: xengine-consumer-cfd-clickhouse, project_dir: /home/ec2-user/git/xengine-consumer-cfd-clickhouse, engine: clickhouse, dialect: clickhouse, target_dir: target}
+  - {name: xengine-consumer-cfd-snowflake,  project_dir: /home/ec2-user/git/xengine-consumer-cfd-snowflake,  engine: snowflake,  dialect: snowflake,  target_dir: target, dbt_bin: /home/ec2-user/venv_dbt2/bin/dbt, profiles_dir: /home/ec2-user/.dbt}
+  - {name: xengine-consumer-cfd-clickhouse, project_dir: /home/ec2-user/git/xengine-consumer-cfd-clickhouse, engine: clickhouse, dialect: clickhouse, target_dir: target, dbt_bin: /home/ec2-user/venv_ai_etl/bin/dbt, profiles_dir: /home/ec2-user/.dbt}
 lineage_out: lineage_xengine.json
